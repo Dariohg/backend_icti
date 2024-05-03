@@ -10,6 +10,7 @@ import dependenciaRouter from "./routes/dependenciaRouter.js";
 import departamentoRouter from "./routes/departamentoRouter.js";
 import versionContratoRouter from "./routes/versionContratoRouter.js";
 import tipoContratoRouter from "./routes/tipoContratoRouter.js";
+import authRouter from "./routes/authRouter.js";
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use('/dependencia',dependenciaRouter)
 app.use('/departamento',departamentoRouter)
 app.use('/versionContrato',versionContratoRouter)
 app.use('/tipoContrato',tipoContratoRouter)
+app.use('/auth',authRouter)
 
 try {
     await db.authenticate()
@@ -30,7 +32,6 @@ try {
 }catch (error){
     console.log(`El error de conexion es:${error}`)
 }
-
 
 app.listen(8000,()=>{
     console.log('Server running in http://localhost:8000/')
