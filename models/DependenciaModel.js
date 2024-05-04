@@ -1,7 +1,7 @@
 import db from "../database/db.js";
 import {DataTypes} from "sequelize";
 
-const DependenciaModel = db.define('catalogoDependencia_enlace',{
+const DependenciaModel = db.define('catalagoDependencia_enlace',{
     idDependencia: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -22,8 +22,10 @@ const DependenciaModel = db.define('catalogoDependencia_enlace',{
     tipoOrgano: {type: DataTypes.INTEGER},
     web: {type: DataTypes.STRING}
 }, {
-    tableName: 'catalogoDependencia_enlace',
+    tableName: 'catalagoDependencia_enlace',
     timestamps: false // Desactivar las columnas createdAt y updatedAt
 });
 
 export default DependenciaModel;
+
+

@@ -1,4 +1,4 @@
-import EnlaceModel from "../models/EnlaceModel.js";
+import EnlacePersonaModel from "../models/EnlacePersonaModel.js";
 import CargoEnlaceModel from "../models/CargoEnlaceModel.js";
 import CatalagoDepartamentoModel from "../models/CatalagoDepartamentoModel.js";
 import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
@@ -8,7 +8,7 @@ import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
 //mostrar todos los enlaces
 {/*export const getAllEnlaces = async (req, res)=>{
     try {
-        const enlace = await EnlaceModel.findAll()
+        const enlace = await EnlacePersonaModel.findAll()
         res.json(enlace)
     }catch (error){
         res.json({message: error.message})
@@ -19,7 +19,7 @@ import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
 
     export const getAllEnlaces = async (req, res) => {
         try {
-            const enlaces = await EnlaceModel.findAll({
+            const enlaces = await EnlacePersonaModel.findAll({
                 include: [
                     {
                         model: CargoEnlaceModel,
@@ -34,7 +34,7 @@ import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
                     {
                         model: catalagoDireccionModel,
                         as: 'direccion',
-                        attributes: ['nombreDireccion']
+                        attributes: ['nombre']
                     }
                 ]
             });
@@ -45,11 +45,11 @@ import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
     };
 
 export const getAllEnlacesByEstatusId = async (req, res) => {
-    const { estatus_id } = req.query;
+    const { estatus } = req.query;
     try {
-        const enlaces = await EnlaceModel.findAll({
+        const enlaces = await EnlacePersonaModel.findAll({
             where: {
-                estatus_id
+                estatus
             },
             include: [
                 {
@@ -65,7 +65,7 @@ export const getAllEnlacesByEstatusId = async (req, res) => {
                 {
                     model: catalagoDireccionModel,
                     as: 'direccion',
-                    attributes: ['nombreDireccion']
+                    attributes: ['nombre']
                 }
             ]
         });
@@ -79,7 +79,7 @@ export const getAllEnlacesByEstatusId = async (req, res) => {
 // Mostrar un enlace
 export const getEnlace = async (req, res) => {
     try {
-        const enlace = await EnlaceModel.findOne({
+        const enlace = await EnlacePersonaModel.findOne({
             where: { idEnlace: req.params.id },
             include: [
                 {
@@ -110,7 +110,7 @@ export const getEnlace = async (req, res) => {
 //Crear un enlace
     export const createEnlace = async (req, res) => {
         try {
-            await EnlaceModel.create(req.body)
+            await EnlacePersonaModel.create(req.body)
             res.json({
                 "message": "Enlace creado correctamente"
             })
@@ -122,7 +122,7 @@ export const getEnlace = async (req, res) => {
 //actualizar un registro
     export const updateEnlace = async (req, res) => {
         try {
-            await EnlaceModel.update(req.body, {
+            await EnlacePersonaModel.update(req.body, {
                 where: {idEnlace: req.params.id}
             })
             res.json({
@@ -136,7 +136,7 @@ export const getEnlace = async (req, res) => {
 export const updateEnlaceEliminado = async (req, res) => {
     try {
         const { estatus_id } = req.body;
-        await EnlaceModel.update({ estatus_id: 3 }, {
+        await EnlacePersonaModel.update({ estatus_id: 3 }, {
             where: { idEnlace: req.params.id }
         });
         res.json({
@@ -152,7 +152,7 @@ export const updateEnlaceEliminado = async (req, res) => {
 //Eliminar un enlace
     export const deleteEnlace = async (req, res) => {
         try {
-            await EnlaceModel.destroy({
+            await EnlacePersonaModel.destroy({
                 where: {idEnlace: req.params.id}
             })
             res.json({

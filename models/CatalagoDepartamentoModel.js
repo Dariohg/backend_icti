@@ -1,16 +1,16 @@
 import db from "../database/db.js";
 import {DataTypes} from "sequelize";
 
-const CatalagoDepartamentoModel = db.define('catalogo_departamento',{
+const CatalagoDepartamentoModel = db.define('catalago_departamento',{
     idDepartamento: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         field: 'idDepartamento'
     },
     nombreDepartamento: {type: DataTypes.STRING},
-    direccion_id: {type: DataTypes.INTEGER}
+    id_direccion: {type: DataTypes.INTEGER}
 }, {
-    tableName: 'catalogo_departamento',
+    tableName: 'catalago_departamento',
     timestamps: false // Desactivar las columnas createdAt y updatedAt
 });
 

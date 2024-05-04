@@ -1,18 +1,17 @@
 import db from "../database/db.js";
 import {DataTypes} from "sequelize";
 
-const TipoContratoModel = db.define('TipoContrato',{
-    id_tipoContrato: {
+const TipoContratoModel = db.define('catalago_tipoContrato',{
+    idTipoContrato: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        field: 'id_tipoContrato'
+        field: 'idTipoContrato'
     },
     nombre: {type: DataTypes.STRING},
-    estatus_id: {type: DataTypes.INTEGER},
-    eliminado: {type: DataTypes.INTEGER}
+    estatus: {type: DataTypes.INTEGER},
 
 }, {
-    tableName: 'tipo_contrato',
+    tableName: 'catalago_tipoContrato',
     timestamps: false
 });
 

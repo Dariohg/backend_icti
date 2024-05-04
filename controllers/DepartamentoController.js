@@ -11,12 +11,12 @@ export const getAllDepartamento = async (req, res) => {
 };
 
 export const getAllDepartamentoByDireccionId = async (req, res) => {
-    const { direccion_id } = req.query;
+    const { id_direccion } = req.query;
 
     try {
         const departamento = await catalagoDepartamentoModel.findAll({
             where: {
-                direccion_id: direccion_id
+                id_direccion: id_direccion
             }
         });
         res.json(departamento);

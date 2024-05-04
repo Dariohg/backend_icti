@@ -1,17 +1,17 @@
 import db from "../database/db.js";
 import {DataTypes} from "sequelize";
 
-const CargoEnlaceModel = db.define('cargo_enlace',{
-    idCargo: {
+const StatusModel = db.define('status',{
+    id_status: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        field: 'idCargo'
+        field: 'id_status'
     },
-    nombreCargo: {type: DataTypes.STRING},
+    status: {type: DataTypes.STRING},
 }, {
-    tableName: 'cargo_enlace',
+    tableName: 'status',
     timestamps: false // Desactivar las columnas createdAt y updatedAt
 });
 
-export default CargoEnlaceModel;
+export default StatusModel;
 
