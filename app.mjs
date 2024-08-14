@@ -1,5 +1,6 @@
 import express from "express";
-import cors from 'cors'
+import cors from 'cors';
+import cookieParser from "cookie-parser";
 //importamos la conexion de la base de datos
 import db from "./database/db.js";
 //importamos nuestro enrutador
@@ -14,8 +15,35 @@ import authRouter from "./routes/authRouter.js";
 
 const app = express()
 
-app.use(cors())
+const allowedOrigins = [
+    'http://localhost:3001', 
+    'http://localhost:5173', 
+    'http://localhost:5174',
+    'http://localhost:3000'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true); 
+        } else {
+            return callback(new Error('CORS not allowed'), false); 
+        }
+    },
+    credentials: true, 
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Set-Cookie', 'Cookie', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'],
+}));
+
+// app.use(cors({
+//     origin: '*',
+//     credentials: true,
+// }));
+
 app.use(express.json())
+
+app.use(cookieParser())
 
 app.use('/enlace',enlaceRoutes)
 app.use('/cargo',cargoRouter)

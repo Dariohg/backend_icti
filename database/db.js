@@ -5,12 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Obtener las variables de entorno necesarias
-const { DB, USSER, PASS, HOST, PORT } = process.env;
+const { DB, DB_USER, PASS, DB_HOST, PORT } = process.env;
 
 
 // Crear la instancia de Sequelize con los datos de la base de datos
-const db = new Sequelize(DB, USSER, PASS, {
-    host: HOST,
+const db = new Sequelize(DB, DB_USER, PASS, {
+    host: DB_HOST,
     port: PORT,
     dialect: "mysql", // Puedes cambiar el dialecto según tu base de datos
 });

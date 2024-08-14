@@ -1,6 +1,7 @@
 import UsuarioModel from "../models/Usuario.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import cookie from "cookie";
 
 const secret = process.env.JWT_SECRET || 'secret';
 
@@ -14,10 +15,24 @@ export const login = async (req, res) => {
             }
         });
 
-        const validPassword = bcrypt.compareSync(password, usuario.password);
+        const validPassword = bcrypt.compareSync(password, usuario.dataValues.password);
 
         if(usuario && validPassword){
             const token = jwt.sign({id: usuario.idUsuario, correo: usuario.correo, username: usuario.username}, secret);
+
+            console.log('Configurando cookie...');
+
+            res.cookie('token', token, {
+                httpOnly: false,
+                // path: "/login",
+                // domain: "localhost",
+                secure: false,
+                path: '/',
+                // sameSite: 'lax',
+                maxAge: 3600000, // 1 horas en milisegundos
+            });
+
+            // res.send("Cookie Set" + token);
 
             res.status(200).json({
                 status: 'success',
