@@ -11,6 +11,8 @@ import departamentoRouter from "./routes/departamentoRouter.js";
 import versionContratoRouter from "./routes/versionContratoRouter.js";
 import tipoContratoRouter from "./routes/tipoContratoRouter.js";
 import authRouter from "./routes/authRouter.js";
+import tipoInstalacionRouter from "./routes/tipoInstalacionRouter.js";
+import contratoRouter from "./routes/contratoRouter.js";
 
 const app = express()
 
@@ -25,6 +27,8 @@ app.use('/departamento',departamentoRouter)
 app.use('/versionContrato',versionContratoRouter)
 app.use('/tipoContrato',tipoContratoRouter)
 app.use('/auth',authRouter)
+app.use('/tipoInstalacion', tipoInstalacionRouter)
+app.use('/contrato', contratoRouter)
 
 try {
     await db.authenticate()

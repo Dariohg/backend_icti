@@ -32,10 +32,12 @@ EnlacePersonaModel.belongsTo(CargoEnlaceModel, {
     foreignKey: 'cargo_id',
     as: 'cargoEnlace', // Nombre de la relación
 });
+
 EnlacePersonaModel.belongsTo(CatalagoDepartamentoModel, {
     foreignKey: 'adscripcion_id',
     as: 'departamento'
 });
+
 EnlacePersonaModel.belongsTo(CatalagoDireccionModel, {
     foreignKey: 'direccion_id',
     as: 'direccion'

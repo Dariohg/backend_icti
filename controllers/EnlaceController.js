@@ -2,6 +2,8 @@ import EnlacePersonaModel from "../models/EnlacePersonaModel.js";
 import CargoEnlaceModel from "../models/CargoEnlaceModel.js";
 import CatalagoDepartamentoModel from "../models/CatalagoDepartamentoModel.js";
 import catalagoDireccionModel from "../models/CatalagoDireccionModel.js";
+import DependenciaModel from "../models/DependenciaModel.js";
+import CatalagoDireccionModel from "../models/CatalagoDireccionModel.js";
 
 
 
@@ -63,9 +65,16 @@ export const getAllEnlacesByEstatusId = async (req, res) => {
                     attributes: ['nombreDepartamento']
                 },
                 {
-                    model: catalagoDireccionModel,
+                    model: CatalagoDireccionModel,
                     as: 'direccion',
-                    attributes: ['nombre']
+                    attributes: ['nombre'],
+                    include: [
+                        {
+                            model: DependenciaModel,
+                            as: 'dependencia',
+                            attributes: ['nombreCorto']
+                        }
+                    ]
                 }
             ]
         });
@@ -76,11 +85,12 @@ export const getAllEnlacesByEstatusId = async (req, res) => {
 };
 
 
+
 // Mostrar un enlace
 export const getEnlace = async (req, res) => {
     try {
         const enlace = await EnlacePersonaModel.findOne({
-            where: { idEnlace: req.params.id },
+            where: { idPersona: req.params.id },  // Cambiado a idPersona
             include: [
                 {
                     model: CargoEnlaceModel,
@@ -93,9 +103,16 @@ export const getEnlace = async (req, res) => {
                     attributes: ['nombreDepartamento']
                 },
                 {
-                    model: catalagoDireccionModel,
+                    model: CatalagoDireccionModel,
                     as: 'direccion',
-                    attributes: ['nombreDireccion']
+                    attributes: ['nombre'],
+                    include: [
+                        {
+                            model: DependenciaModel,
+                            as: 'dependencia',
+                            attributes: ['nombreCorto']
+                        }
+                    ]
                 }
             ]
         });
@@ -104,6 +121,7 @@ export const getEnlace = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 
