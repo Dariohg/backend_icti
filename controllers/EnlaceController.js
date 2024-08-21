@@ -110,7 +110,7 @@ export const getEnlace = async (req, res) => {
                         {
                             model: DependenciaModel,
                             as: 'dependencia',
-                            attributes: ['nombreCorto']
+                            attributes: ['idDependencia','nombreDependencia','nombreCorto']
                         }
                     ]
                 }
@@ -153,9 +153,8 @@ export const getEnlace = async (req, res) => {
 
 export const updateEnlaceEliminado = async (req, res) => {
     try {
-        const { estatus_id } = req.body;
-        await EnlacePersonaModel.update({ estatus_id: 3 }, {
-            where: { idEnlace: req.params.id }
+        await EnlacePersonaModel.update({ estatus: 3 }, { // Cambié estatus_id a estatus
+            where: { idPersona: req.params.id } // Usar idPersona en lugar de idEnlace
         });
         res.json({
             "message": "Enlace actualizado correctamente"
@@ -164,6 +163,9 @@ export const updateEnlaceEliminado = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
 
 //Eliminar un enlace
     export const deleteEnlace = async (req, res) => {
