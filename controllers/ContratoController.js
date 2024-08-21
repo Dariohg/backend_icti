@@ -24,6 +24,11 @@ export const getAllContratos = async (req, res) => {
                     as: 'ubicacionInstalacion',
                     attributes: ['nombre'], // Campo que quieres incluir
                 },
+                {
+                    model: TipoContratoModel, // Asegúrate de incluir este modelo
+                    as: 'tipoContrato',
+                    attributes: ['nombre'], // Aquí obtienes el nombre del contrato
+                }
             ]
         });
 
@@ -37,7 +42,7 @@ export const getAllContratos = async (req, res) => {
             usuario: contrato.id_user,
             versionContrato: contrato.versionContrato.descripcion,
             ubicacion: contrato.ubicacionInstalacion.nombre,
-            tipoContrato: contrato.id_tipoContrato
+            tipoContrato: contrato.tipoContrato.nombre
         }));
 
         res.json(formattedContratos);
@@ -71,10 +76,10 @@ export const getContratosByEnlaceId = async (req, res) => {
                     attributes: ['nombre'],
                 },
                 {
-                    model: TipoContratoModel, // Incluye el modelo TipoContrato
+                    model: TipoContratoModel, // Asegúrate de incluir este modelo
                     as: 'tipoContrato',
-                    attributes: ['nombre'], // Asegúrate de incluir el campo 'nombre'
-                },
+                    attributes: ['nombre'], // Aquí obtienes el nombre del contrato
+                }
             ]
         });
 
@@ -87,7 +92,7 @@ export const getContratosByEnlaceId = async (req, res) => {
             usuario: contrato.id_user,
             versionContrato: contrato.versionContrato.descripcion,
             ubicacion: contrato.ubicacionInstalacion.nombre,
-            tipoContrato: contrato.tipoContrato.nombre // Incluye el nombre del tipo de contrato en la respuesta
+            tipoContrato: contrato.tipoContrato.nombre // Cambia esto para mostrar el nombre en lugar del ID
         }));
 
         res.json(formattedContratos);
@@ -95,6 +100,7 @@ export const getContratosByEnlaceId = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 
